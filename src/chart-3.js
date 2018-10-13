@@ -28,7 +28,7 @@ let months = [
     'Jun',
     'Jul',
     'Aug',
-    'Sep',
+    'Sept',
     'Oct',
     'Nov',
     'Dec'
@@ -41,7 +41,8 @@ var angleScale = d3
 
 var colorScale = d3
   .scaleLinear()
-  .domain([0, 90])
+  // .domain([d3.min(+d.high_temp), d3.max(+d.high_temp)])
+  // .domain([0, 90])
   .range(['lightblue', 'pink'])
 
 var arc = d3
@@ -60,9 +61,19 @@ function ready(datapoints) {
 
   // datapoints.push(datapoints[0])
 
+  var highTemps = datapoints.map(function(d) {
+    return +d.high_temp
+  })
+
+  var maxTemp = d3.max(highTemps)
+  var minTemp = d3.min(highTemps)
+
+  colorScale.domain([minTemp, maxTemp])
+
   var holder = svg
     .append('g')
     .attr('transform', `translate(${width / 2},${height / 2})`)
+
 
   holder
     .selectAll('.temp-bar')

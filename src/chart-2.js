@@ -12,9 +12,12 @@ var svg = d3
   .append('g')
   .attr('transform', `translate(${margin.left},${margin.top})`)
 
-var pie = d3.pie().value(function(d) {
-  return d.minutes
-})
+var pie = d3
+  .pie()
+  .value(function(d) {
+    return d.minutes
+  })
+  .sort(null)
 
 var radius = 90
 
@@ -23,7 +26,10 @@ var arc = d3
   .innerRadius(0)
   .outerRadius(radius)
 
-var xPositionScale = d3.scalePoint().range([0, width])
+var xPositionScale = d3
+  .scalePoint()
+  .range([0, width])
+  .padding(0)
 
 var colorScale = d3.scaleOrdinal().range(['#FE8A7E', '#FFC1B3', '#FFC85F'])
 
